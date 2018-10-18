@@ -1,5 +1,6 @@
-class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :update, :destroy]
+class BooksController < OpenReadController
+  # set your own resources just like this but change example to your own resource created.
+  before_action :set_book, only: %i[update destroy]
 
   # GET /books
   def index
@@ -10,15 +11,15 @@ class BooksController < ApplicationController
 
   # GET /books/1
   def show
-    render json: @book
+    render json: Book.find(params[:id])
   end
 
   # POST /books
   def create
-    @book = Book.new(book_params)
+    @book = current_user.books.build(book_params)
 
     if @book.save
-      render json: @book, status: :created, location: @book
+      render json: @book, status: :created
     else
       render json: @book.errors, status: :unprocessable_entity
     end
@@ -36,16 +37,20 @@ class BooksController < ApplicationController
   # DELETE /books/1
   def destroy
     @book.destroy
+
+    head :no_content
   end
 
-  private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_book
-      @book = Book.find(params[:id])
+      @book = current_user.books.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
     def book_params
       params.require(:book).permit(:title)
     end
+
+    private :set_book, :book_params
 end

@@ -4,7 +4,6 @@ class ExamplesController < OpenReadController
   # set your own resources just like this but change example to your own resource created.
   before_action :set_example, only: %i[update destroy]
 
-
   # GET /examples
   # GET /examples.json
   def index
