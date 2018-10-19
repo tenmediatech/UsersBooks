@@ -1,3 +1,3 @@
 #!/bin/bash
 
-curl --include --request GET "http://localhost:4741/ingredients/${ID}" \
+curl --include --request GET "https://usersbooksapi.herokuapp.com/books/${ID}" \

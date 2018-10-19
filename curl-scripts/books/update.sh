@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl --include --request PATCH "http://localhost:4741/books/${ID}" \
+curl --include --request PATCH "https://usersbooksapi.herokuapp.com/books/${ID}" \
   --header "Content-Type: application/json" \
   --data '{
     "book": {
